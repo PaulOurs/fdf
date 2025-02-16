@@ -6,7 +6,7 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 04:22:12 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/15 05:51:35 by paubello         ###   ########.fr       */
+/*   Updated: 2025/02/16 06:19:54 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,96 @@ void	ft_put_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	ft_drawline(t_data img, t_point3D p1, t_point3D p2)
+int	get_abs(int val)
 {
-	int	dy;
-	int	dx;
-	int	d;
-	int	x;
-	int	y;
+	if (val < 0)
+		return(-val);
+	return (val);
+}
 
-	dy = p2.y - p1.y;
-	dx = p2.x - p1.x;
-	d = 2 * dy - dx;
-	x = p1.x;
-	y = p1.y;
-	while (x <= p2.x)
+void	ft_drawline(t_data img, t_point3D p1, t_point3D p2, int color)
+{
+	int dx = get_abs(p2.x - p1.x);
+	int dy = get_abs(p2.y - p1.y);
+	int sx = (p1.x < p2.x) ? 1 : -1; // Step in x direction
+	int sy = (p1.y < p2.y) ? 1 : -1; // Step in y direction
+	int err = dx - dy;
+	int  e2;
+
+	while (1)
 	{
-		ft_put_pixel(&img, x, y, 0x00FF0000);
-		x++;
-		if (d < 0)
-			d += 2 * dy;
-		else
+		ft_put_pixel(&img, p1.x, p1.y, color); // Draw pixel
+
+		if (p1.x == p2.x && p1.y == p2.y) // Stop when reaching the endpoint
+			break;
+
+		e2 = 2 * err;
+		if (e2 > -dy) // Move in x direction
 		{
-			d += 2 * (dy - dx);
-			y++;
+			err -= dy;
+			p1.x += sx;
+		}
+		if (e2 < dx) // Move in y direction
+		{
+			err += dx;
+			p1.y += sy;
 		}
 	}
-
 }
+
+void run_tests(t_data img)
+{
+    __builtin_printf("Running Bresenham line tests with colors...\n");
+
+    // Define colors
+    int red = 0x00FF0000;
+    int green = 0x0000FF00;
+    int blue = 0x000000FF;
+    int yellow = 0x00FFFF00;
+    int cyan = 0x0000FFFF;
+    int magenta = 0x00FF00FF;
+    int white = 0x00FFFFFF;
+    int orange = 0x00FFA500;
+    int purple = 0x00800080;
+    int pink = 0x00FFC0CB;
+    int gray = 0x00808080;
+
+    // 1. Horizontal Line (left to right) - Red
+    ft_drawline(img, (t_point3D){50, 200, 0}, (t_point3D){300, 200, 0}, red);
+
+    // 2. Horizontal Line (right to left) - Green
+    ft_drawline(img, (t_point3D){300, 200, 0}, (t_point3D){50, 200, 0}, green);
+
+    // 3. Vertical Line (top to bottom) - Blue
+    ft_drawline(img, (t_point3D){200, 50, 0}, (t_point3D){200, 400, 0}, blue);
+
+    // 4. Vertical Line (bottom to top) - Yellow
+    ft_drawline(img, (t_point3D){200, 400, 0}, (t_point3D){200, 50, 0}, yellow);
+
+    // 5. Shallow Slope (dx > dy, positive slope) - Cyan
+    ft_drawline(img, (t_point3D){100, 100, 0}, (t_point3D){400, 150, 0}, cyan);
+
+    // 6. Steep Slope (dy > dx, positive slope) - Magenta
+    ft_drawline(img, (t_point3D){100, 100, 0}, (t_point3D){150, 400, 0}, magenta);
+
+    // 7. Negative Slope (downward, left-to-right) - White
+    ft_drawline(img, (t_point3D){100, 400, 0}, (t_point3D){400, 100, 0}, white);
+
+    // 8. Negative Slope (downward, right-to-left) - Orange
+    ft_drawline(img, (t_point3D){400, 100, 0}, (t_point3D){100, 400, 0}, orange);
+
+    // 9. Single Point (Edge Case) - Purple
+    ft_drawline(img, (t_point3D){250, 250, 0}, (t_point3D){250, 250, 0}, purple);
+
+    // 10. Very Steep Line - Pink
+    ft_drawline(img, (t_point3D){300, 50, 0}, (t_point3D){305, 400, 0}, pink);
+
+    // 11. Very Shallow Line - Gray
+    ft_drawline(img, (t_point3D){50, 300, 0}, (t_point3D){400, 305, 0}, gray);
+
+    __builtin_printf("Tests completed.\n");
+}
+
 
 int	main(void)
 {
@@ -74,10 +137,7 @@ int	main(void)
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_lenght, &img.endian);
 
-	t_point3D p1 = {20, 20, 0};
-	t_point3D p2 = {500, 50, 0};
-
-	ft_drawline(img, p1, p2);
+	run_tests(img);
 
 	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
 
