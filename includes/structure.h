@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 04:13:58 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/18 02:56:26 by paubello         ###   ########.fr       */
+/*   Created: 2025/02/18 02:42:59 by paubello          #+#    #+#             */
+/*   Updated: 2025/02/18 02:43:42 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#ifndef STRUCTURE_H
+# define STRUCTURE_H
 
-int	free_display(t_vars *vars)
+typedef struct s_data
 {
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_image(vars->mlx, vars->img->img);\
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
-	exit(0);
-	return (0);
-}
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_lenght;
+	int		endian;
+}	t_data;
+
+typedef struct s_point3D
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_point3D;
+
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+	t_data	*img;
+}	t_vars;
+
+#endif

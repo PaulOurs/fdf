@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 03:20:10 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/18 05:35:07 by paubello         ###   ########.fr       */
+/*   Created: 2025/02/18 02:49:41 by paubello          #+#    #+#             */
+/*   Updated: 2025/02/18 05:35:33 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FUNCTIONS_H
+# define FUNCTIONS_H
 
-# include "../minilibx-linux/mlx.h"
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+/*			Drawing functions			*/
 
-# define WIDTH 1920
-# define HEIGHT 1080
+void	ft_drawline(t_data img, t_point3D p1, t_point3D p2, int color);
+void	run_tests(t_data img);
+int		get_abs(int val);
 
- #include "structure.h"
- #include "functions.h"
- #include "keys.h"
-
-int	init_hooks(t_vars *vars);
-
-int	free_display(t_vars *vars);
 
 typedef struct s_data	t_data;
 typedef struct s_point3D	t_point3D;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bresenham.c                                   :+:      :+:    :+:   */
+/*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 03:25:29 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/17 03:30:10 by paubello         ###   ########.fr       */
+/*   Updated: 2025/02/18 05:20:02 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,45 @@ void run_tests(t_data img)
     ft_drawline(img, (t_point3D){50, 300, 0}, (t_point3D){400, 305, 0}, gray);
 
     __builtin_printf("Tests completed.\n");
+}
+
+void	ft_put_pixel(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_lenght + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	ft_drawline(t_data img, t_point3D p1, t_point3D p2, int color)
+{
+	t_point3D	delta;
+	int sx = (p1.x < p2.x) ? 1 : -1; // Step in x direction
+	int sy = (p1.y < p2.y) ? 1 : -1; // Step in y direction
+	int err;
+	int  e2;
+
+
+	delta.x = get_abs(p2.x - p1.x);
+	delta.y = get_abs(p2.y - p1.y);
+	err = delta.x - delta.y;
+	while (1)
+	{
+		ft_put_pixel(&img, p1.x, p1.y, color); // Draw pixel
+
+		if (p1.x == p2.x && p1.y == p2.y) // Stop when reaching the endpoint
+			break;
+
+		e2 = 2 * err;
+		if (e2 > -delta.y) // Move in x direction
+		{
+			err -= delta.y;
+			p1.x += sx;
+		}
+		if (e2 < delta.x) // Move in y direction
+		{
+			err += delta.x;
+			p1.y += sy;
+		}
+	}
 }
