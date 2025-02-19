@@ -6,7 +6,7 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 02:49:41 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/18 05:35:33 by paubello         ###   ########.fr       */
+/*   Updated: 2025/02/19 00:30:59 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		get_abs(int val);
 
 typedef struct s_data	t_data;
 typedef struct s_point3D	t_point3D;
+typedef struct s_map	t_map;
 typedef struct s_vars	t_vars;
 
 #endif

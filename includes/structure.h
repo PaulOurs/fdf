@@ -6,7 +6,7 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 02:42:59 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/18 02:43:42 by paubello         ###   ########.fr       */
+/*   Updated: 2025/02/19 00:26:38 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,15 @@ typedef struct s_point3D
 	int	x;
 	int	y;
 	int	z;
+	int	color;
 }	t_point3D;
+
+typedef struct s_map
+{
+	int		width;
+	int		height;
+	t_point3D	**map;
+}	t_map;
 
 typedef struct s_vars
 {

@@ -6,14 +6,14 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 03:20:10 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/18 05:35:07 by paubello         ###   ########.fr       */
+/*   Updated: 2025/02/19 04:02:46 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../minilibx-linux/mlx.h"
+# include "../libs/minilibx-linux/mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -33,6 +33,7 @@ int	free_display(t_vars *vars);
 
 typedef struct s_data	t_data;
 typedef struct s_point3D	t_point3D;
+typedef struct s_map	t_map;
 typedef struct s_vars	t_vars;
 
 #endif

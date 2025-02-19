@@ -6,7 +6,7 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 04:22:12 by paubello          #+#    #+#             */
-/*   Updated: 2025/02/18 05:34:05 by paubello         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:37:43 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(void)
 	t_data	img;
 
 	init_datas(&vars, &img);
-
 	run_tests(img);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 
